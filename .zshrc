@@ -39,3 +39,22 @@ alias gpf='git push -f'
 # Quick aliases for AI tools
 alias cc='claude'
 alias cx='codex'
+
+# Terminal startup prompt — choose your session type
+if [[ -o interactive && -z "$CLAUDE_STARTUP_DONE" ]]; then
+  export CLAUDE_STARTUP_DONE=1
+  echo ""
+  echo "What would you like to open?"
+  echo "  [1] Claude Code CLI"
+  echo "  [2] Codex CLI"
+  echo "  [3] Regular Terminal"
+  echo ""
+  read -k 1 "choice?> "
+  echo ""
+  case "$choice" in
+    1) claude ;;
+    2) codex ;;
+    3) ;; # just continue to regular shell
+    *) echo "Continuing with regular terminal..." ;;
+  esac
+fi
