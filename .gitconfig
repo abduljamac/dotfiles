@@ -1,0 +1,15 @@
+[user]
+	name = abduljamac
+	email = abduljama001@gmail.com
+
+[alias]
+	a = add
+	aa = add .
+	cm = commit -m
+	ca = commit --amend --no-edit
+	p = push
+	pf = push -f
+	s = status
+
+[core]
+	excludesfile = ~/.gitignore_global

@@ -28,14 +28,6 @@ for cmd in node npm npx nvm; do
   eval "${cmd}() { lazy_load_nvm; ${cmd} \"\$@\"; }"
 done
 
-# Git aliases
-alias ga='git add'
-alias gaa='git add -A'
-alias gcm='git commit -m'
-alias gca='git commit --amend --no-edit'
-alias gp='git push'
-alias gpf='git push -f'
-
 # Quick aliases for AI tools
 alias cc='claude'
 alias cx='codex'
