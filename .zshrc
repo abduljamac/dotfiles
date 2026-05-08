@@ -1,4 +1,4 @@
-export PATH=/opt/homebrew/bin:$PATH
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/Applications/cmux.app/Contents/Resources/bin:$PATH"
 
 # Cached compinit — only rebuilds once per day
 autoload -U compinit
@@ -32,21 +32,20 @@ done
 alias cc='claude'
 alias cx='codex'
 
-# Terminal startup prompt — choose your session type
-if [[ -o interactive && -z "$CLAUDE_STARTUP_DONE" ]]; then
-  export CLAUDE_STARTUP_DONE=1
-  echo ""
-  echo "What would you like to open?"
-  echo "  [1] Claude Code CLI"
-  echo "  [2] Codex CLI"
-  echo "  [3] Regular Terminal"
-  echo ""
-  read -k 1 "choice?> "
-  echo ""
-  case "$choice" in
-    1) claude ;;
-    2) codex ;;
-    3) ;; # just continue to regular shell
-    *) echo "Continuing with regular terminal..." ;;
-  esac
+# New cmux workspaces start at home; splits within a workspace keep their directory
+if [[ -n "${CMUX_TAB_ID:-}" ]]; then
+    _cmux_seen="/tmp/cmux-seen-workspaces"
+    if ! grep -qF "$CMUX_TAB_ID" "$_cmux_seen" 2>/dev/null; then
+        echo "$CMUX_TAB_ID" >> "$_cmux_seen"
+        cd "$HOME"
+    fi
+    unset _cmux_seen
 fi
+
+# pnpm
+export PNPM_HOME="/Users/abduljamac/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
